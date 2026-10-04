@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
+import { DEMOQA_URL } from '../../config/urls';
 
 test('permite introducir datos en tablas dinámicas', async ({ page }) => {
-        await page.goto('https://demoqa.com/webtables');
+        await page.goto(DEMOQA_URL + '/webtables');
         await page.getByRole('button', { name: 'Add' }).click();
         await page.getByPlaceholder('First Name').fill('Juan');
         await page.getByPlaceholder('Last Name').fill('Perez');
@@ -14,7 +15,7 @@ test('permite introducir datos en tablas dinámicas', async ({ page }) => {
         await expect(page.locator('tr').filter({ hasText: 'Perez'})).toBeVisible();
     })
     test('permite interactuar con menus desplegables personalizados', async ({ page }) => {
-        await page.goto('https://demoqa.com/select-menu');
+        await page.goto(DEMOQA_URL + '/select-menu');
         // 1. Haz clic para abrir el menú flotante
         await page.locator('#react-select-2-input').click(); // línea 44[cite: 3]
         // 2. Haz clic directamente en la opción del menú desplegable por su texto

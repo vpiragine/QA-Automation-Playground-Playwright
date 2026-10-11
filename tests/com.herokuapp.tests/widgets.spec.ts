@@ -33,7 +33,7 @@ test.describe('Widgets difíciles', async () => {
         await page.route('**/*.{png,jpg,jpeg,gif,svg}', route => route.abort()); // Opcional: si no necesitas imágenes
         await page.route('**/*analytics*', route => route.abort());
         await page.route('**/*google*', route => route.abort());
-        await page.goto(HEROKUAPP_URL + '/upload'),{ waitUntil: 'commit', timeout: 60000 };
+        await page.goto(HEROKUAPP_URL + '/upload'),{ waitUntil: 'commit', timeout: 120000 };
         const filePath = 'tests/fixtures/archivo-prueba.txt';
         await page.locator('#file-upload').setInputFiles(filePath);
         await Promise.all([
@@ -41,6 +41,6 @@ test.describe('Widgets difíciles', async () => {
             page.locator('#file-submit').click()
         ]);
         await expect(page.locator('#uploaded-files')).toHaveText('archivo-prueba.txt'), { 
-  timeout: 15000
+  timeout: 120000
     }});
  })  

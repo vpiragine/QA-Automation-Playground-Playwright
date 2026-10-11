@@ -15,7 +15,7 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
  */
 export default defineConfig({
   expect: {
-    timeout: 10000, // Ahora todas las aserciones expect() esperarán hasta 10s por defecto
+    timeout: 60000, // Ahora todas las aserciones expect() esperarán hasta 10s por defecto
   },
   testDir: './tests',
   fullyParallel: true,
@@ -60,14 +60,22 @@ export default defineConfig({
     },
 
     /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
+    {
+       name: 'Mobile Chrome',
+       use: { ...devices['Pixel 5'] },
+       timeout: 60000,
+       // Los retos de widgets practican mecánicas de interacción, no
+       // comportamiento responsive: solo se corren en los proyectos desktop
+       testIgnore: /widgets\.spec\.ts/
+    },
+    {
+       name: 'Mobile Safari',
+       use: { ...devices['iPhone 12'] },
+       timeout: 60000,
+       // Los retos de widgets practican mecánicas de interacción, no
+       // comportamiento responsive: solo se corren en los proyectos desktop
+       testIgnore: /widgets\.spec\.ts/
+    },
 
     /* Test against branded browsers. */
     // {

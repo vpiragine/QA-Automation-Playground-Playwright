@@ -1,2 +1,2 @@
 # qa-automation-playground-
-j
+By: Vanessa Piragine V.

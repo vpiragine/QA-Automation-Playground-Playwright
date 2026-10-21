@@ -45,18 +45,21 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
       timeout: 60000,
+      testIgnore: /api\.spec\.ts/
     },
 
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
       timeout: 60000,
+      testIgnore: /api\.spec\.ts/
     },
 
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
       timeout: 60000,
+      testIgnore: /api\.spec\.ts/
     },
 
     /* Test against mobile viewports. */
@@ -66,7 +69,7 @@ export default defineConfig({
        timeout: 60000,
        // Los retos de widgets practican mecánicas de interacción, no
        // comportamiento responsive: solo se corren en los proyectos desktop
-       testIgnore: /widgets\.spec\.ts/
+       testIgnore: [/widgets\.spec\.ts/, /api\.spec\.ts/]
     },
     {
        name: 'Mobile Safari',
@@ -74,9 +77,14 @@ export default defineConfig({
        timeout: 60000,
        // Los retos de widgets practican mecánicas de interacción, no
        // comportamiento responsive: solo se corren en los proyectos desktop
-       testIgnore: /widgets\.spec\.ts/
+       testIgnore: [/widgets\.spec\.ts/, /api\.spec\.ts/]
     },
 
+    {
+// Tests de API: no necesitan navegador, corren una sola vez.
+name: 'api',
+testMatch: /api\.spec\.ts/,
+},
     /* Test against branded browsers. */
     // {
     //   name: 'Microsoft Edge',

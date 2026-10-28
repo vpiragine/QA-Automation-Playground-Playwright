@@ -45,7 +45,7 @@ test.describe('Mocking de red', () => {
         await page.route(FRUITS_API_PATTERN, async (route) => {
             await route.fulfill({status: 500, body: 'Internal Server Error'});
     });
-        //await fruitsPage.goto();
+        await fruitsPage.goto();
         //await expect(page.getByText('Internal Server Error')).toBeVisible();
 });
 });

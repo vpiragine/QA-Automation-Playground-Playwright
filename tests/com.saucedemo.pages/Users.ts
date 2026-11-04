@@ -1,25 +1,25 @@
 declare const process: {
 	env: Record<string, string | undefined>;
 };
-const username = process.env.SAUCEDEMO_USERNAME as string;
-const lockedUsername = process.env.SAUCEDEMO_LOCKED_USERNAME as string;
-const password = process.env.SAUCEDEMO_PASSWORD as string;
+const username = process.env.SAUCEDEMO_USERNAME || 'standard_user';
+const lockedUsername = process.env.SAUCEDEMO_LOCKED_USERNAME || 'locked_out_user';
+const password = process.env.SAUCEDEMO_PASSWORD || 'secret_sauce';
 
 export const loginUsers = [
     {
-        username: 'standard_user',
-        password: 'secret_sauce',
+        username: username,
+        password: password,
         description: 'Usuario válido',
         shouldSucceed: true,
     },
     {
-        username: 'locked_out_user',
-        password: 'secret_sauce',
+        username: lockedUsername,
+        password: password,
         description: 'Usuario bloqueado',
         shouldSucceed: false,
     },
     {
-        username: 'standard_user',
+        username: username,
         password: 'clave-incorrecta',
         description: 'Contraseña incorrecta',
         shouldSucceed: false,

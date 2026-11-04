@@ -1,20 +1,30 @@
-import { Page } from '@playwright/test';
-// Mismo patrón que LoginPage: guardamos "page" en el constructor y cada método es una acción que se puede hacer en esta pantalla.
+import { Page , Locator, expect } from '@playwright/test';
+
+
 export class InventoryPage {
-    page: Page;
-    constructor(page: Page) {
-        this.page = page;
-    }
+    constructor(private readonly page: Page) {}
+
+    private get addToCartButton(): Locator { return this.page.locator('.btn_inventory'); }
+    private get cartBadge() { return this.page.locator('.shopping_cart_badge'); }
+    private get cartLink() { return this.page.locator('.shopping_cart_link'); }
+
     //Agregar un producto
     async addProductToCart(index = 0) {
-        await this.page.getByText('Add to cart').nth(index).click();
+        await this.addToCartButton.nth(index).click(); 
     }
     //Ver el contenido del carrito
     getCartBadge() {
-        return this.page.locator('.shopping_cart_badge');
+        return this.cartBadge;
     }
     //Ir al carrito
-    async goToCart() {
-        await this.page.locator('.shopping_cart_link').click();
-}
+    async navigateToCart() {
+        await this.cartLink.click();
+        await this.page.waitForURL(/cart.html/);
+        await expect(this.page).toHaveURL(/cart.html/);
+    }
+    //Assertion: numero de productos en el carrito
+    async assertCartBadgeCount(expectedCount: number) {
+        const badge = this.getCartBadge();
+        await expect(badge).toHaveText(expectedCount.toString());
+    }
 }

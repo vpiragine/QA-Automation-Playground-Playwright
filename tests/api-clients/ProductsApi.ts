@@ -1,5 +1,5 @@
 import { APIRequestContext } from '@playwright/test';
-import { AUTOMATION_EXERCISE_URL } from '../../../config/urls';
+import { AUTOMATION_EXERCISE_URL } from '../../config/urls';
 // API client: agrupa las llamadas a un recurso específico de la API, en este caso, productos.
 export class ProductsApi {
   private request: APIRequestContext;

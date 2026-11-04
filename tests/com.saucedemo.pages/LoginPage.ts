@@ -1,22 +1,33 @@
 // "export" hace esta clase disponible para que otros archivos
 //  la importen.
-import { Page } from '@playwright/test';
+import { Page , Locator , expect } from '@playwright/test';
 import { SAUCEDEMO_URL } from '../../config/urls';
-// Una clase agrupa datos + funciones relacionadas. Esta agrupa todo lo que sabemos hacer en la pantalla de login.
+
 export class LoginPage {
-page: Page; // aquí guardamos la página que vamos a usar en los métodos de abajo - atributo de la clase
-// El constructor se ejecuta UNA vez, cuando escribes `new LoginPage(page)`.
-constructor(page: Page) {
-this.page = page; // "this" = esta instancia en particular de LoginPage
-}
-// Cada función dentro de la clase es un "método".
-async goto() {
-await this.page.goto(SAUCEDEMO_URL);
-}
-// username: "string y password: "string" - son "tipos": le dicen a TypeScript qué dato se espera en cada parámetro, y te avisa si te equivocas.
-async login(username: string, password: string) {
-await this.page.getByPlaceholder('Username').fill(username);
-await this.page.getByPlaceholder('Password').fill(password);
-await this.page.getByRole('button', { name: 'Login' }).click();
-}
-}
+    constructor(private readonly page: Page) {}
+
+    private get usernameInput() { return this.page.locator('[data-test="username"]'); }
+    private get passwordInput() { return this.page.locator('[data-test="password"]'); }
+    private get loginButton() { return this.page.locator('[data-test="login-button"]'); }
+// Getter para el mensaje de error
+    private get errorMessage() { return this.page.getByText(/Epic sadface:/); }
+
+    async navigateToLoginPage() { 
+        await this.page.goto(SAUCEDEMO_URL);
+    }
+
+    async login(username: string, password: string) {
+        await this.usernameInput.fill(username);
+        await this.passwordInput.fill(password);
+        await this.loginButton.click();
+    }
+    // Aserción para login fallido
+    async assertErrorMessage() {
+        await expect(this.errorMessage).toBeVisible();
+    }
+// Aserción para verificar que estamos en la página de inventario tras login exitoso
+    async assertionOnInventoryPage() {
+        await expect(this.page).toHaveURL(/inventory.html/);
+    }
+
+};

@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { Page, expect } from '@playwright/test';
 export class CheckoutPage {
     page: Page;
     constructor(page: Page) {
@@ -6,7 +6,7 @@ export class CheckoutPage {
 
     }
     //Ir al checkout desde el carrito
-    async goToCheckout() {
+    async navigateToCheckout() {
         await this.page.getByText('Checkout').click();
     }
     //Completar el formulario de checkout - info del cliente
@@ -16,8 +16,19 @@ export class CheckoutPage {
         await this.page.getByPlaceholder('Zip/Postal Code').fill(postalCode);
         await this.page.getByRole('button', { name: 'Continue' }).click();
     }
+    //Verificar que se muestre la página de resumen del pedido
+    async verifyCheckoutSummary() {
+        await this.page.getByText('Payment Information').isVisible();
+        await this.page.getByText('Shipping Information').isVisible();
+        await this.page.getByText('Price Total').isVisible();
+    }   
     //Hacer clic en "Finish" para completar la compra
     async confirmPurchase() {
         await this.page.getByRole('button', { name: 'Finish' }).click();
     }
-}   
+    //Verificar que se muestre la página de confirmación
+    async verifyPurchaseConfirmation() {
+        await expect(this.page.getByText('THANK YOU FOR YOUR ORDER')).toBeVisible();
+    }
+
+};

@@ -10,18 +10,18 @@ responsive, APIs y mocking.
 - demo.playwright.dev: mocking de red
 ## Estructura
 - `pages/`: Page Objects
-- `api-clients/`: clientes de API
+- `api-client/`: clientes de API
 - `tests/`: tests (`tests/data/`: datos de prueba)
 - `config/urls.ts`: URLs de los sitios
 ## Instalación
-1. `git clone https://github.com/TU-USUARIO/qa-automation-playground.git`
-2. `cd qa-automation-playground`
-3. `npm ci`
-4. `npx playwright install`
-5. `cp .env.example .env` y completa los valores
+1. `git clone https://github.com/vpiragine/QA-Automation-Playground-Playwright.git`
+2. `cd QA-Automation-Playground-Playwright`
+3. `npm istall`
+4. `cp .env.example .env` y completa los valores
 ## Cómo correr los tests
 - Toda la suite: `npx playwright test`
 - Solo APIs: `npx playwright test --project=api`
 - Modo UI: `npx playwright test --ui`
 - Reporte: `npx playwright show-report`
+
 By: Vanessa Piragine V.

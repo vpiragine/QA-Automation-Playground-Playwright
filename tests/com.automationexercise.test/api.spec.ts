@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { ProductsApi } from '../com.automationexercise.pages/ProductsApi';
+import { ProductsApi } from '../com.automationexercise.apiclient/ProductsApi';
 
 test.describe('API de Automation Exercise', () => {
   test('GET /productsList - Obtener todos los productos - 200', async ({ request }) => {

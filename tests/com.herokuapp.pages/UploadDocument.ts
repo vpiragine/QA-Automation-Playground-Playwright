@@ -1,7 +1,7 @@
 import { Page, Locator, expect } from "@playwright/test";
 import { HEROKUAPP_URL } from "../../config/urls";
 
-export class uploadDoc {
+export class UploadDocument {
     constructor(private readonly page: Page){}
 
     // Métodos para abortar recursos/analytics si lo necesitas en esta página

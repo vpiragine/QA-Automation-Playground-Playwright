@@ -1,9 +1,6 @@
-import { test } from '@playwright/test'
-import { DynamicContent } from '../com.herokuapp.pages/DynamicContent';
+import { test } from '../page-fixtures';
 
-
-test ('permite interactuar con contenido que se carga dinámicamente', async ({ page }) => {
-    const dynamicContent = new DynamicContent(page);
+test ('permite interactuar con contenido que se carga dinámicamente', async ({ dynamicContent }) => {
 
     await dynamicContent.blockAdsAndAnalytics();
     await dynamicContent.navigate();

@@ -1,10 +1,7 @@
-import { test } from '@playwright/test';
-import { IframePage } from '../com.herokuapp.pages/IframePage';
-
+import { test } from '../page-fixtures';
 
 test.describe('Widgets difíciles', async () => {
-    test('permite escribir en un editor de texto enriquecido', async ({ page }) => {
-        const iframePage = new IframePage(page);
+    test('permite escribir en un editor de texto enriquecido', async ({ iframePage }) => {
 
         await iframePage.blockAdsAndAnalytics();
         await iframePage.navigate();

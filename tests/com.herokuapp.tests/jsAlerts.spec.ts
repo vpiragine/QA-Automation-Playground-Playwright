@@ -1,8 +1,6 @@
-import { test } from '@playwright/test'
-import { JsAlerts } from '../com.herokuapp.pages/JSAlertsPage'
+import { test } from '../page-fixtures';
 
-test ('permite interactuar con alertas JavaScript', async ({ page }) => {
-    const jsAlerts = new JsAlerts(page);
+test ('permite interactuar con alertas JavaScript', async ({ jsAlerts }) => {
 
     await jsAlerts.blockAdsAndAnalytics();
     await jsAlerts.navigate();

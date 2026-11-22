@@ -1,8 +1,11 @@
 import { Page , Locator, expect } from '@playwright/test';
-
+import { SAUCEDEMO_URL } from '../../config/urls';
 
 export class InventoryPage {
     constructor(private readonly page: Page) {}
+    async  goto() {
+        await this.page.goto(`${SAUCEDEMO_URL}/inventory.html`);;
+    }
 
     private get addToCartButton(): Locator { return this.page.locator('.btn_inventory'); }
     private get cartBadge() { return this.page.locator('.shopping_cart_badge'); }
@@ -27,4 +30,4 @@ export class InventoryPage {
         const badge = this.getCartBadge();
         await expect(badge).toHaveText(expectedCount.toString());
     }
-}
+};

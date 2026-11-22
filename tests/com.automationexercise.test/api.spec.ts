@@ -1,12 +1,9 @@
-import { test, expect } from '@playwright/test';
-import { ProductsApi } from '../com.automationexercise.apiclient/ProductsApi';
+import { test, expect } from '../page-fixtures'; 
 
 test.describe('API de Automation Exercise', () => {
-  test('GET /productsList - Obtener todos los productos - 200', async ({ request }) => {
-    const productsApi = new ProductsApi(request);
+  test('GET /productsList - Obtener todos los productos - 200', async ({ request, productsApi }) => {
     const response = await productsApi.getAllProducts(); 
     expect (response.ok()).toBeTruthy();
-
     const body = await response.json();
     expect (body.responseCode).toBe(200);
     expect (body.products.length).toBeGreaterThan(0);
@@ -14,8 +11,7 @@ test.describe('API de Automation Exercise', () => {
     //console.log('Status HTTP:', response.status(), '| responseCode:', body.responseCode);
     });
 
-    test('POST /searchProduct - Buscar un producto existente - 200', async ({ request }) => {
-    const productsApi = new ProductsApi(request);
+    test('POST /searchProduct - Buscar un producto existente - 200', async ({ request, productsApi }) => {
     const response = await productsApi.searchProduct('tshirt');
     const body = await response.json();
     expect (body.responseCode).toBe(200);
@@ -23,8 +19,7 @@ test.describe('API de Automation Exercise', () => {
     //console.log('Status HTTP:', response.status(), '| responseCode:', body.responseCode);
     });
 
-    test('POST /searchProduct - Buscar un producto inexistente - 400', async ({ request }) => {
-    const productsApi = new ProductsApi(request);
+    test('POST /searchProduct - Buscar un producto inexistente - 400', async ({ request, productsApi }) => {
     const response =  await productsApi.searchProductWithoutTerm();
     const body = await response.json(); 
     expect (body.responseCode).toBe(400);
@@ -32,8 +27,7 @@ test.describe('API de Automation Exercise', () => {
     //console.log('Status HTTP:', response.status(), '| responseCode:', body.responseCode);
     });
  
-    test('POST /productsList - Intentar hacer un POST a productsList no está permitido - 405', async ({ request }) => {
-    const productsApi = new ProductsApi(request);
+    test('POST /productsList - Intentar hacer un POST a productsList no está permitido - 405', async ({ request, productsApi }) => {
     const response = await productsApi.postToProductsList();
     const body = await response.json();
     expect (body.responseCode).toBe(405);
@@ -42,4 +36,3 @@ test.describe('API de Automation Exercise', () => {
     
 });
 });
-//

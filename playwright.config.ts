@@ -42,49 +42,72 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
+      name: 'setup',
+      testMatch: /.*\.setup\.ts/,
+    },
+
+    {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: 'playwright/.auth/user.json',
+      },
+      dependencies: ['setup'],
       timeout: 60000,
-      testIgnore: /api\.spec\.ts/
+      testIgnore: /api\.spec\.ts/,
     },
 
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: {
+        ...devices['Desktop Firefox'],
+        storageState: 'playwright/.auth/user.json',
+      },
+      dependencies: ['setup'],
       timeout: 60000,
-      testIgnore: /api\.spec\.ts/
+      testIgnore: /api\.spec\.ts/,
     },
 
     {
       name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      use: {
+        ...devices['Desktop Safari'],
+        storageState: 'playwright/.auth/user.json',
+      },
+      dependencies: ['setup'],
       timeout: 60000,
-      testIgnore: /api\.spec\.ts/
+      testIgnore: /api\.spec\.ts/,
     },
 
     /* Test against mobile viewports. */
     {
-       name: 'Mobile Chrome',
-       use: { ...devices['Pixel 5'] },
-       timeout: 60000,
-       // Los retos de widgets practican mecánicas de interacción, no
-       // comportamiento responsive: solo se corren en los proyectos desktop
-       testIgnore: [/widgets\.spec\.ts/, /api\.spec\.ts/]
+      name: 'Mobile Chrome',
+      use: {
+        ...devices['Pixel 5'],
+        storageState: 'playwright/.auth/user.json',
+      },
+      dependencies: ['setup'],
+      timeout: 60000,
+      // comportamiento responsive: solo se corren en los proyectos desktop
+      testIgnore: [/widgets\.spec\.ts/, /api\.spec\.ts/],
     },
     {
-       name: 'Mobile Safari',
-       use: { ...devices['iPhone 12'] },
-       timeout: 60000,
-       // Los retos de widgets practican mecánicas de interacción, no
-       // comportamiento responsive: solo se corren en los proyectos desktop
-       testIgnore: [/widgets\.spec\.ts/, /api\.spec\.ts/]
+      name: 'Mobile Safari',
+      use: {
+        ...devices['iPhone 12'],
+        storageState: 'playwright/.auth/user.json',
+      },
+      dependencies: ['setup'],
+      timeout: 60000,
+      // comportamiento responsive: solo se corren en los proyectos desktop
+      testIgnore: [/widgets\.spec\.ts/, /api\.spec\.ts/],
     },
 
     {
-// Tests de API: no necesitan navegador, corren una sola vez.
-name: 'api',
-testMatch: /api\.spec\.ts/,
-},
+      // Tests de API: no necesitan navegador, corren una sola vez.
+      name: 'api',
+      testMatch: /api\.spec\.ts/,
+    },
     /* Test against branded browsers. */
     // {
     //   name: 'Microsoft Edge',

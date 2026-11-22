@@ -1,12 +1,12 @@
-import { test } from '@playwright/test'; 
-import { LoginPage } from '../com.saucedemo.pages/LoginPage';
+import { test } from '../page-fixtures';
 import { loginUsers } from '../com.saucedemo.pages/Users';
+// Los tests de login deben empezar SIN sesión: anula la sesión guardada.
+test.use({ storageState: { cookies: [], origins: [] } });
+
 
 test.describe('Pruebas de login', () => {
     for (const user of loginUsers) {
-        test(`Intenta iniciar sesión: ${user.description}`, async ({ page }) => {
-            const loginPage = new LoginPage(page);
-            
+        test(`Intenta iniciar sesión: ${user.description}`, async ({ loginPage }) => {
             await loginPage.navigateToLoginPage();
             await loginPage.login(user.username, user.password);
 
